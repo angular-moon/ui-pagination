@@ -10,7 +10,7 @@
     ],
     "shim": {
         "ui-pagination.js": {
-             "deps": ["angular"],
+             "deps": ["angular", "css!ui-pagination.css"],
             "exports": "'ui.pagination'"
         }
     }

@@ -1,5 +1,3 @@
-//@require bootstrap/css/bootstrap.css
-require("css!ui-pagination.css");
 
 angular.module("ui.pagination.tpls", []).run(["$templateCache", function($templateCache) {
     $templateCache.put("template/originPagination/pager.html",
