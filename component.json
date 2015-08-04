@@ -5,7 +5,8 @@
     "main": "ui-pagination.js",
     "dependencies": [
         "angular",
-        "bootstrap"
+        "bootstrap",
+        "css"
     ],
     "shim": {
         "ui-pagination.js": {

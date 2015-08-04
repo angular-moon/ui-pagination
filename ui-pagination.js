@@ -1,12 +1,13 @@
 //@require bootstrap/css/bootstrap.css
-//@require ui-pagination.css
+require("css!ui-pagination.css");
+
 angular.module("ui.pagination.tpls", []).run(["$templateCache", function($templateCache) {
-    $templateCache.put("template/pagination/pager.html",
+    $templateCache.put("template/originPagination/pager.html",
     "<ul class=\"pager\">\n" +
     "  <li ng-class=\"{disabled: noPrevious(), previous: align}\"><a href ng-click=\"selectPage(page - 1, $event)\">{{getText('previous')}}</a></li>\n" +
     "  <li ng-class=\"{disabled: noNext(), next: align}\"><a href ng-click=\"selectPage(page + 1, $event)\">{{getText('next')}}</a></li>\n" +
     "</ul>");
-     $templateCache.put("template/pagination/pagination.html",
+     $templateCache.put("template/originPagination/pagination.html",
     "<ul class=\"pagination\">\n" +
     "  <li ng-if=\"boundaryLinks\" ng-class=\"{disabled: noPrevious()}\"><a href ng-click=\"selectPage(1, $event)\">{{getText('first')}}</a></li>\n" +
     "  <li ng-if=\"directionLinks\" ng-class=\"{disabled: noPrevious()}\"><a href ng-click=\"selectPage(page - 1, $event)\">{{getText('previous')}}</a></li>\n" +
@@ -33,17 +34,17 @@ angular.module("ui.pagination", ['ui.pagination.tpls'])
             '<div class="pagination jump" ng-if="numPages> 5">' +
             '共 {{numPages}} 页 去第<form name="jumpForm" style="display: inline"><input type="text" name="jumpInput" ng-model="jumpInput" required ng-pattern="/^[0-9]*$/"></form>页' +
             '<button class="btn btn-default" ng-disabled="jumpForm.$invalid" ng-click="__setPage(jumpInput<1?(jumpInput=1):jumpInput>numPages?(jumpInput=numPages):jumpInput)">跳转</button></div>' +
-            '<div style="float:right"><pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" max-size="5" rotate="false" num-pages="numPages"></pagination></div>' +
+            '<div style="float:right" origin-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" max-size="5" rotate="false" num-pages="numPages"></div>' +
             '<i style="clear:both"></i></div>',
         link: function(scope, element, attrs){
-        	scope.__setPage = function(pageNo){
-        		scope.currentPage = pageNo;
-        	}
+          scope.__setPage = function(pageNo){
+            scope.currentPage = pageNo;
+          }
         }
     }
 })
 
-.controller('PaginationController', ['$scope', '$attrs', '$parse', function ($scope, $attrs, $parse) {
+.controller('originPaginationController', ['$scope', '$attrs', '$parse', function ($scope, $attrs, $parse) {
   var self = this,
       ngModelCtrl = { $setViewValue: angular.noop }, // nullModelCtrl
       setNumPages = $attrs.numPages ? $parse($attrs.numPages).assign : angular.noop;
@@ -110,7 +111,7 @@ angular.module("ui.pagination", ['ui.pagination.tpls'])
   };
 }])
 
-.constant('paginationConfig', {
+.constant('originPaginationConfig', {
   itemsPerPage: 10,
   boundaryLinks: true,
   directionLinks: true,
@@ -121,7 +122,7 @@ angular.module("ui.pagination", ['ui.pagination.tpls'])
   rotate: true
 })
 
-.directive('pagination', ['$parse', 'paginationConfig', function($parse, paginationConfig) {
+.directive('originPagination', ['$parse', 'originPaginationConfig', function($parse, paginationConfig) {
   return {
     restrict: 'EA',
     scope: {
@@ -131,9 +132,9 @@ angular.module("ui.pagination", ['ui.pagination.tpls'])
       nextText: '@',
       lastText: '@'
     },
-    require: ['pagination', '?ngModel'],
-    controller: 'PaginationController',
-    templateUrl: 'template/pagination/pagination.html',
+    require: ['originPagination', '?ngModel'],
+    controller: 'originPaginationController',
+    templateUrl: 'template/originPagination/pagination.html',
     replace: true,
     link: function(scope, element, attrs, ctrls) {
       var paginationCtrl = ctrls[0], ngModelCtrl = ctrls[1];
@@ -227,14 +228,14 @@ angular.module("ui.pagination", ['ui.pagination.tpls'])
   };
 }])
 
-.constant('pagerConfig', {
+.constant('originPagerConfig', {
   itemsPerPage: 10,
   previousText: '« 上一页',
   nextText: '下一页 »',
   align: true
 })
 
-.directive('pager', ['pagerConfig', function(pagerConfig) {
+.directive('uiPager', ['originPagerConfig', function(pagerConfig) {
   return {
     restrict: 'EA',
     scope: {
@@ -242,9 +243,9 @@ angular.module("ui.pagination", ['ui.pagination.tpls'])
       previousText: '@',
       nextText: '@'
     },
-    require: ['pager', '?ngModel'],
-    controller: 'PaginationController',
-    templateUrl: 'template/pagination/pager.html',
+    require: ['uiPager', '?ngModel'],
+    controller: 'originPaginationController',
+    templateUrl: 'template/originPagination/pager.html',
     replace: true,
     link: function(scope, element, attrs, ctrls) {
       var paginationCtrl = ctrls[0], ngModelCtrl = ctrls[1];
