@@ -32,7 +32,7 @@ angular.module("ui.pagination", ['ui.pagination.tpls'])
             '<div class="pagination jump" ng-if="numPages> 5">' +
             '共 {{numPages}} 页 去第<form name="jumpForm" style="display: inline"><input type="text" name="jumpInput" ng-model="jumpInput" required ng-pattern="/^[0-9]*$/"></form>页' +
             '<button class="btn btn-default" ng-disabled="jumpForm.$invalid" ng-click="__setPage(jumpInput<1?(jumpInput=1):jumpInput>numPages?(jumpInput=numPages):jumpInput)">跳转</button></div>' +
-            '<div style="float:right" origin-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" max-size="5" rotate="false" num-pages="numPages"></div>' +
+            '<div style="float:right"><div origin-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" max-size="5" rotate="false" num-pages="numPages"></div></div>' +
             '<i style="clear:both"></i></div>',
         link: function(scope, element, attrs){
           scope.__setPage = function(pageNo){
