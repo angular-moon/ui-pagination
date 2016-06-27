@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "分页指令",
     "name": "ui-pagination",
     "main": "ui-pagination.js",
