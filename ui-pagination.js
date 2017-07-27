@@ -38,7 +38,7 @@ angular.module("ui.pagination", ['ui.pagination.tpls'])
             '<i style="clear:both"></i></div>',
         link: function(scope, element, attrs){
           scope.__setPage = function(pageNo){
-            scope.currentPage = pageNo;
+            scope.currentPage = pageNo*1;
           }
         }
     }
