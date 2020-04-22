@@ -1,5 +1,7 @@
 ### ui-pagination:
 
+* <code>hide-on-single-page</code> : 只有一页时是否隐藏分页器, default: false
+
 * <code>items-per-page</code> : 每页显示几条数据
 
 * <code>total-items</code> : 总条数
